@@ -6,7 +6,7 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // Serve up static assets (usually on heroku)
@@ -22,14 +22,6 @@ mongoose.connect(MONGODB_URI);
 
 const db = mongoose.connection;
 
-db.on('error',function(err){
-    console.log('Mongoose Error',err);
-});
-
-db.once('open', function(){
-    console.log("Mongoose connection is successful");
-});
-
 // Import the Article model
 const Article = require('./models/Article.js');
 
@@ -44,4 +36,12 @@ app.get("*", function(req, res) {
 
 app.listen(PORT, function() {
   console.log(`🌎 ==> Server now on port ${PORT}!`);
+
+  db.on('error',function(err){
+    console.log('Mongoose Error',err);
+  });
+  
+  db.once('open', function(){
+    console.log("Mongoose connection is successful");
+  });
 });
