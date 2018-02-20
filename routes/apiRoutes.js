@@ -1,4 +1,6 @@
 const axios = require("axios");
+const articlesController = require("../controllers/articleController");
+const path = require("path");
 
 module.exports = function(app) {
     
@@ -15,11 +17,22 @@ module.exports = function(app) {
         var queryURLBase = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey;
 
         axios.get(queryURLBase).then(function(response) {
-            console.log(response);
             res.send(response.data);
         })
         .catch(function(err){
             console.log(err)
         })        
     });
+
+    app.get("/api/saved", articlesController.find);
+
+    app.post("/api/saved", articlesController.insert);
+
+    app.delete("/api/saved/:id", articlesController.delete);
+
+    app.get("/*", function(req, res) {
+        res.sendFile(path.join(__dirname, "./client/build/index.html"));
+    });
+
+    app.use(app);
 }
