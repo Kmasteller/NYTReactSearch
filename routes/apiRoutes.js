@@ -1,5 +1,5 @@
 const axios = require("axios");
-const articlesController = require("../controllers/articleController");
+const articleController = require("../controllers/articleController");
 const path = require("path");
 
 module.exports = function(app) {
@@ -7,16 +7,13 @@ module.exports = function(app) {
     app.get("/api/articles", function(req, res){
         const authKey = "6860d629a39a4fdc97aa801be0d51d26";
 
+        console.log(req.query, "thisis our query")
         // Search Parameters
-        var queryTerm = "";
-        var numResults = 0;
-        var startYear = 0;
-        var endYear = 0;
-
+        var params = req.query;
         // URL Base
-        var queryURLBase = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" + authKey;
+        var queryURLBase = "https://api.nytimes.com/svc/search/v2/articlesearch.json"
 
-        axios.get(queryURLBase).then(function(response) {
+        axios.get(queryURLBase, {params}).then(function(response) {
             res.send(response.data);
         })
         .catch(function(err){
@@ -24,15 +21,15 @@ module.exports = function(app) {
         })        
     });
 
-    app.get("/api/saved", articlesController.find);
+    app.get("/api/saved", articleController.find);
 
-    app.post("/api/saved", articlesController.insert);
+    app.post("/api/saved", articleController.insert);
 
-    app.delete("/api/saved/:id", articlesController.delete);
+    app.delete("/api/saved/:id", articleController.delete);
 
     app.get("/*", function(req, res) {
         res.sendFile(path.join(__dirname, "./client/build/index.html"));
     });
 
-    app.use(app);
+    // app.use(app);
 }

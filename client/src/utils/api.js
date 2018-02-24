@@ -3,21 +3,23 @@ import axios from "axios";
 const API = {
   // Search the webpage
     search: function(topic, startYear, endYear) {
-        const authKey = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
-        const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
-        authKey + "&q=" + topic + "&begin_date=" + startYear + "0101&end_date=" + endYear + "0101";
-        return axios.get(queryURL);
+        const authKey = "6860d629a39a4fdc97aa801be0d51d26";
+        const queryURL = "/api/articles"
+        return axios.get(queryURL, {
+            params: {api_key: authKey, q: topic, start_year: startYear, end_year: endYear
+            }
+        });
     },
  
-    getArticle: function() {
+    find: function() {
         return axios.get("/api/saved");
     },
 
-    saveArticle: function(articleObj) {
+    insert: function(articleObj) {
         return axios.post("/api/saved", articleObj);
     },
 
-    deleteArticle: function(id) {
+    delete: function(id) {
         return axios.delete(`/api/saved/${id}`);
     }
 };

@@ -11,7 +11,7 @@ state = {
     startYear: "",
     endYear: "",
     articles: [],
-    saved: []
+    saved: []   
 };
 
 componentDidMount() {
@@ -19,13 +19,12 @@ componentDidMount() {
 }
 
 getSavedArticles = () => {
-    API.getArticle()
+    API.find()
     .then((res) => {
         this.setState({ saved: res.data });
     });
 }
 
-// A helper method for rendering one search results div for each article
 renderArticles = () => {
     return this.state.articles.map(article => (
     <Results
@@ -40,7 +39,6 @@ renderArticles = () => {
     ));
 }
 
-// A helper method for rendering one div for each saved article
 renderSaved = () => {
     return this.state.saved.map(save => (
     <Saved
@@ -73,7 +71,7 @@ handleFormSubmit = (event) => {
     console.log("this.state.topic: ", this.state.topic);
     console.log("this.state.startYear: ", this.state.startYear);
     console.log("this.state.endYear: ", this.state.endYear);
-    API.searchNYT(this.state.topic, this.state.startYear, this.state.endYear)
+    API.search(this.state.topic, this.state.startYear, this.state.endYear)
     .then((res) => {
         this.setState({ articles: res.data.response.docs });
         console.log("this.state.articles: ", this.state.articles);
@@ -84,12 +82,12 @@ handleSaveButton = (id) => {
     const findArticleByID = this.state.articles.find((el) => el._id === id);
     console.log("findArticleByID: ", findArticleByID);
     const newSave = {title: findArticleByID.headline.main, date: findArticleByID.pub_date, url: findArticleByID.web_url};
-    API.saveArticle(newSave)
+    API.save(newSave)
     .then(this.getSavedArticles());
 }
 
 handleDeleteButton = (id) => {
-    API.deleteArticle(id)
+    API.delete(id)
     .then(this.getSavedArticles());
 }
 
