@@ -1,6 +1,5 @@
 // Require Mongoose
 const mongoose = require('mongoose');
-
 // Setup Schema
 const Schema = mongoose.Schema;
 

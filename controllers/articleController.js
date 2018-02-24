@@ -1,4 +1,4 @@
-var Article = require('../models/article.js');
+const Article = require('../models');
 
 module.exports = {
     find: function(req, res) {
