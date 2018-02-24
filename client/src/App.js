@@ -21,6 +21,7 @@ componentDidMount() {
 getSavedArticles = () => {
     API.find()
     .then((res) => {
+        console.log(res)
         this.setState({ saved: res.data });
     });
 }
@@ -73,15 +74,16 @@ handleFormSubmit = (event) => {
     console.log("this.state.endYear: ", this.state.endYear);
     API.search(this.state.topic, this.state.startYear, this.state.endYear)
     .then((res) => {
+        console.log(res)
         this.setState({ articles: res.data.response.docs });
-        console.log("this.state.articles: ", this.state.articles);
+                console.log("this.state.articles: ", this.state.articles);
     });
 }
 
 handleSaveButton = (id) => {
     const findArticleByID = this.state.articles.find((el) => el._id === id);
     console.log("findArticleByID: ", findArticleByID);
-    const newSave = {title: findArticleByID.headline.main, date: findArticleByID.pub_date, url: findArticleByID.web_url};
+    const newSave = {title: findArticleByID.headline.main, date: findArticleByID.pub_date, link: findArticleByID.web_url};
     API.insert(newSave)
     .then(this.getSavedArticles());
 }

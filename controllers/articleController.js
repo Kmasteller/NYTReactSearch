@@ -10,6 +10,7 @@ module.exports = {
     },
 
     insert: function(req, res) {
+        console.log(req.body)
         Article.create(req.body).then(function(data) {
         res.json(data);
         }).catch(function(err) {
