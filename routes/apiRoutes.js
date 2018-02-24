@@ -7,7 +7,7 @@ module.exports = function(app) {
     app.get("/api/articles", function(req, res){
         const authKey = "6860d629a39a4fdc97aa801be0d51d26";
 
-        console.log(req.query, "thisis our query")
+        console.log(req.query, "this is our query")
         // Search Parameters
         var params = req.query;
         // URL Base
@@ -31,5 +31,4 @@ module.exports = function(app) {
         res.sendFile(path.join(__dirname, "./client/build/index.html"));
     });
 
-    // app.use(app);
 }
