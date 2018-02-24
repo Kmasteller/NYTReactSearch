@@ -97,8 +97,8 @@ render() {
     <div className="main-container">
         <div className="container">
         <div className="jumbotron">
-            <h1 className="text-center"><strong>New York Times Article Search</strong></h1>
-            <h2 className="text-center">Search for and save articles of interest.</h2>
+            <h1 className="text-center"><strong><span class="glyphicon glyphicon-globe"></span>NYT Article Search</strong></h1>
+            <h2 className="text-center">Find NYT articles and save the ones you want to read later!</h2>
         </div>
         <Search
             handleTopicChange={this.handleTopicChange}
