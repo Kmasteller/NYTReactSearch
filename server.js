@@ -22,9 +22,6 @@ mongoose.connect(MONGODB_URI);
 
 const db = mongoose.connection;
 
-// Import the Article model
-const Article = require('./models/Article.js');
-
 // Import Routes
 require("./routes/apiRoutes")(app);
 
